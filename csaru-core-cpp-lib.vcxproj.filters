@@ -12,6 +12,9 @@
     <ClCompile Include="$(ProjectDir)src\StdAfx.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\WindowsOnly.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(ProjectDir)src\StdAfx.h">

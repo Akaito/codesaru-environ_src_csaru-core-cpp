@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015 Christopher Higgins Barrett
+Copyright (c) 2011 Christopher Higgins Barrett
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -20,22 +20,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#pragma once
+// this file implements the Windows side of Core functions.
+#ifdef _MSC_VER
 
-#ifndef NULL
-#   define NULL nullptr
-#endif
+#include <csaru-core-cpp.h>
 
-#define ref(x) \
-    ((void *)(x))
-
-#define DISALLOW_COPY_AND_ASSIGN(type)       \
-    type (const type &) = delete;            \
-    type & operator=(const type &) = delete;
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <Windows.h>
 
 namespace CSaruCore {
 
-// system page size in bytes
-unsigned long GetSystemPageSize ();
+unsigned long GetSystemPageSize () {
+    SYSTEM_INFO sysInfo;
+    GetSystemInfo(&sysInfo);
+    return static_cast<unsigned long>(sysInfo.dwPageSize);
+}
 
 } // namespace CSaruCore
+
+#endif // _MSC_VER
