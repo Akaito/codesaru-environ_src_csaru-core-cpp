@@ -26,8 +26,13 @@ SOFTWARE.
 #   define NULL nullptr
 #endif
 
+#define ASSERT assert
+
 #define ref(x) \
-    ((void *)(x))
+    ((void *)(&x))
+
+#define arrsize(a) \
+    (sizeof(a) / sizeof(a[0]))
 
 #define DISALLOW_COPY_AND_ASSIGN(type)       \
     type (const type &) = delete;            \
