@@ -37,6 +37,10 @@ unsigned long GetSystemPageSize () {
     return static_cast<unsigned long>(sysInfo.dwPageSize);
 }
 
+void SecureZero (void * dest, size_t byteCount) {
+    SecureZeroMemory(dest, byteCount);
+}
+
 } // namespace CSaruCore
 
 #endif // _MSC_VER

@@ -22,14 +22,13 @@ SOFTWARE.
 
 #pragma once
 
-#ifndef NULL
-#   define NULL nullptr
-#endif
+#include <cstdint>
+#include <climits>
 
 #define ASSERT assert
 
 #define ref(x) \
-    ((void *)(&x))
+    (void(&x))
 
 #define arrsize(a) \
     (sizeof(a) / sizeof(a[0]))
@@ -38,9 +37,25 @@ SOFTWARE.
     type (const type &) = delete;            \
     type & operator=(const type &) = delete;
 
+#ifndef MIN
+#   define MIN(x, y) ((x) < (y) ? (x) : (y))
+#endif
+#ifndef min
+#   define min MIN
+#endif
+
+#ifndef MAX
+#   define MAX(x, y) ((x) > (y) ? (x) : (y))
+#endif
+#ifndef max
+#   define max MAX
+#endif
+
 namespace CSaruCore {
 
 // system page size in bytes
 unsigned long GetSystemPageSize ();
+
+void SecureZero (void * dest, size_t byteCount);
 
 } // namespace CSaruCore
