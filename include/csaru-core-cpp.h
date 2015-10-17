@@ -22,8 +22,9 @@ freely, subject to the following restrictions:
 
 #include <cstdint>
 #include <climits>
+#include <cassert>
 
-#define ASSERT assert
+#define ASSERT(x) assert(x)
 
 #define ref(x) \
     (void(&x))
