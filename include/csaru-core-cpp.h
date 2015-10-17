@@ -39,15 +39,9 @@ freely, subject to the following restrictions:
 #ifndef MIN
 #   define MIN(x, y) ((x) < (y) ? (x) : (y))
 #endif
-#ifndef min
-#   define min MIN
-#endif
 
 #ifndef MAX
 #   define MAX(x, y) ((x) > (y) ? (x) : (y))
-#endif
-#ifndef max
-#   define max MAX
 #endif
 
 namespace CSaruCore {
