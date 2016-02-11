@@ -44,6 +44,36 @@ freely, subject to the following restrictions:
 #   define MAX(x, y) ((x) > (y) ? (x) : (y))
 #endif
 
+//////
+// size_t printf specifiers for multiple platforms.
+// As explained in some places, MSVC's C compiler is still mostly in the C98 days.  GCC uses more modern C standards.
+// Copy-paste-tweaked from:
+// http://stackoverflow.com/questions/1546789/clean-code-to-printf-size-t-in-c-or-nearest-equivalent-of-c99s-z-in-c
+#if defined(_MSC_VER) || defined(__MINGW32__) //__MINGW32__ should goes before __GNUC__
+#	define PF_SIZE_T    "%Iu"
+#	define PF_SSIZE_T   "%Id"
+#	define PF_PTRDIFF_T "%Id"
+#elif defined(__GNUC__)
+#	define PF_SIZE_T    "%zu"
+#	define PF_SSIZE_T   "%zd"
+#	define PF_PTRDIFF_T "%zd"
+#else
+  // TODO figure out which to use.
+#	if NUMBITS == 32
+#		error "Figure out size_t format specifiers for this platform."
+#		define PF_SIZE_T    something_unsigned
+#		define PF_SSIZE_T   something_signed
+#		define PF_PTRDIFF_T something_signed
+#	else
+#		error "Figure out size_t format specifiers for this platform."
+#		define PF_SIZE_T    something_bigger_unsigned
+#		define PF_SSIZE_T   something_bigger_signed
+#		define PF_PTRDIFF_T something-bigger_signed
+#	endif
+#endif
+//
+//////
+
 namespace CSaruCore {
 
 // system page size in bytes
