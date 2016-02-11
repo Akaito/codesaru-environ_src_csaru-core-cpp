@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015 Christopher Higgins Barrett
+Copyright (c) 2016 Christopher Higgins Barrett
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
@@ -49,6 +49,7 @@ namespace CSaruCore {
 // system page size in bytes
 unsigned long GetSystemPageSize ();
 
-void SecureZero (void * dest, size_t byteCount);
+void SecureZero (void * dest, std::size_t byteCount);
 
 } // namespace CSaruCore
+

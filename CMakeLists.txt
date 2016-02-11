@@ -28,3 +28,8 @@ include($ENV{CSaruDir}/cmake/CSaru.cmake)
 # Pass the version of your project; it's not related to the CSaruEnviron.
 CSaru_Lib(0.2)
 
+# Custom stuff hand-edited into this CMakeLists ...
+
+set(CXX_STANDARD_REQUIRED true)
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
+
