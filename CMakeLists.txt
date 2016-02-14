@@ -25,3 +25,5 @@ CSaru_Lib(0.3 "${src_files}" "${header_files}")
 set(CXX_STANDARD_REQUIRED true)
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
 
+#message(STATUS "Targets: [${${PROJECT_NAME}-targets}]")
+
