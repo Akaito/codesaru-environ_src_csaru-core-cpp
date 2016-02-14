@@ -21,6 +21,7 @@ freely, subject to the following restrictions:
 // this file implements the Windows side of Core functions.
 #ifdef linux
 
+#include <cstdio>
 #include <cstring>
 #include <unistd.h>
 
@@ -28,11 +29,18 @@ freely, subject to the following restrictions:
 
 namespace CSaruCore {
 
-unsigned long GetSystemPageSize () {
+//=====================================================================
+void Beep () {
+	std::printf("\a");
+}
+
+//=====================================================================
+std::size_t GetSystemPageSize () {
 	// From getpagesize man page.
     return sysconf(_SC_PAGESIZE);
 }
 
+//=====================================================================
 void SecureZero (void * dest, size_t byteCount) {
 	// TODO : Will GCC/Clang/etc. ever optimize this out?
     memset(dest, 0, byteCount);

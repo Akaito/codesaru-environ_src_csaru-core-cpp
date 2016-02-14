@@ -77,9 +77,11 @@ freely, subject to the following restrictions:
 namespace CSaruCore {
 
 // system page size in bytes
-unsigned long GetSystemPageSize ();
+std::size_t GetSystemPageSize ();
 
 void SecureZero (void * dest, std::size_t byteCount);
+
+void Beep ();
 
 } // namespace CSaruCore
 
