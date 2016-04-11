@@ -21,6 +21,8 @@ freely, subject to the following restrictions:
 // this file implements the Windows side of Core functions.
 #ifdef _MSC_VER
 
+#include <cstddef>
+
 #include "../include/csaru-core-cpp.h"
 
 #define WIN32_LEAN_AND_MEAN
@@ -29,10 +31,10 @@ freely, subject to the following restrictions:
 
 namespace CSaruCore {
 
-unsigned long GetSystemPageSize () {
+std::size_t GetSystemPageSize () {
     SYSTEM_INFO sysInfo;
     GetSystemInfo(&sysInfo);
-    return static_cast<unsigned long>(sysInfo.dwPageSize);
+    return static_cast<std::size_t>(sysInfo.dwPageSize);
 }
 
 void SecureZero (void * dest, size_t byteCount) {
