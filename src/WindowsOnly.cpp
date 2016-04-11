@@ -22,6 +22,7 @@ freely, subject to the following restrictions:
 #ifdef _MSC_VER
 
 #include <cstddef>
+#include <cstdio>
 
 #include "../include/csaru-core-cpp.h"
 
@@ -31,12 +32,19 @@ freely, subject to the following restrictions:
 
 namespace CSaruCore {
 
+//=====================================================================
+void Beep () {
+	std::printf("\a");
+}
+
+//=====================================================================
 std::size_t GetSystemPageSize () {
     SYSTEM_INFO sysInfo;
     GetSystemInfo(&sysInfo);
     return static_cast<std::size_t>(sysInfo.dwPageSize);
 }
 
+//=====================================================================
 void SecureZero (void * dest, size_t byteCount) {
     SecureZeroMemory(dest, byteCount);
 }
