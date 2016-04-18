@@ -24,10 +24,16 @@ freely, subject to the following restrictions:
 #include <climits>
 #include <cassert>
 
-#define ASSERT(x) assert(x)
+#ifndef ASSERT
+#	define ASSERT(x) assert(x)
+#endif
 
-#define ref(x) \
-    (void(&x))
+#ifdef unused
+#	error "unused already defined"
+#else
+// use to silence "unused variable" warnings
+#	define unused(x) (void(&x))
+#endif
 
 #define arrsize(a) \
     (sizeof(a) / sizeof(a[0]))
