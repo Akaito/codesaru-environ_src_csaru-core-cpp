@@ -35,6 +35,23 @@ freely, subject to the following restrictions:
 #	define unused(x) (void(&x))
 #endif
 
+// Tweaked version from a talk by Ryan Gordon (of Icculus) at
+// Steam Dev Days, on (porting to) Linux game development.
+#ifndef STUBBED
+#	ifdef fprintf
+#		define STUBBED(msg) \
+	do { \
+		static bool seenThis = false; \
+		if (!seenThis) { \
+			fprintf(stderr, "STUBBED: %s at %s (%s:%d)\n", \
+				msg, __FUNCTION__, __FILE__, __LINE__); \
+		} \
+	} while(0);
+#	else
+#		define STUBBED(msg) (void(&x))
+#	endif
+#endif
+
 #define arrsize(a) \
     (sizeof(a) / sizeof(a[0]))
 
