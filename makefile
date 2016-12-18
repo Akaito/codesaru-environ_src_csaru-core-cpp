@@ -6,17 +6,29 @@ include $(CSaruDir)/make-helpers.mk
 
 PROJNAME = csaru-core-cpp
 HEADERS = include/csaru-core-cpp.h
-SRC = src/LinuxOnly.cpp src/WindowsOnly.cpp
-TEMP_DIR = temp/
+SRCS = src/LinuxOnly.cpp src/WindowsOnly.cpp
+OBJ = $(subst .cpp,.o,$(SRC))
+TEMP_DIR = temp
 
-build: $(SRC) $(HEADERS)
-	#-mkdir $(TEMP_DIR)
-	$(CC) -c $(SRC)
-	ar rcs lib$(PROJNAME).a *.o
+build: lib$(PROJNAME).a
+
+depend: .depend
+
+.depend: $(SRCS)
+	$(CC) $(CPPFLAGS) -MM $? > .depend
 
 clean:
-	-rm -rf $(TEMP_DIR)/*
+	#-rm -rf $(TEMP_DIR)/*
+	rm .depend
 
 uninstall:
 	-rm -rf $(CSaruDir)/pkg/$(PROJNAME)/*
+
+(%.o): %.cpp
+	$(CC) -c $(CPPFLAGS) $< -o $(TEMP_DIR)/$@
+
+lib$(PROJNAME).a: $(OBJ)
+	ar r $@ $?
+
+include .depend
 

@@ -10,10 +10,6 @@ Release
 *.sln
 *.sdf
 
-# nix
-Makefile
-*.a
-
 # CMake
 CMakeFiles
 CMakeCache.txt
@@ -22,3 +18,6 @@ install_manifest.txt
 
 # Python
 __pycache__
+
+# This project
+temp
