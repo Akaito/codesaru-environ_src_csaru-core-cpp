@@ -69,9 +69,9 @@ freely, subject to the following restrictions:
 
 //////
 // size_t printf specifiers for multiple platforms.
-// As explained in some places, MSVC's C compiler is still mostly in the C98 days.  GCC uses more modern C standards.
 // Copy-paste-tweaked from:
 // http://stackoverflow.com/questions/1546789/clean-code-to-printf-size-t-in-c-or-nearest-equivalent-of-c99s-z-in-c
+// As explained in some places, MSVC's C compiler is still mostly in the C98 days.  GCC uses more modern C standards.
 #if defined(_MSC_VER) || defined(__MINGW32__) //__MINGW32__ should goes before __GNUC__
 #	define PF_SIZE_T    "%Iu"
 #	define PF_SSIZE_T   "%Id"
