@@ -12,10 +12,12 @@ TEMP_DIR = temp
 
 build: lib$(PROJNAME).a
 
+# Just for human convenience.
 depend: .depend
 
+# File with more Make build rules, built by the compiler's dependency crawling.
 .depend: $(SRCS)
-	$(CC) $(CPPFLAGS) -MM $? > .depend
+	$(CC) $(CXXFLAGS) -MM $? > .depend
 
 clean:
 	#-rm -rf $(TEMP_DIR)/*
@@ -25,7 +27,9 @@ uninstall:
 	-rm -rf $(CSaruDir)/pkg/$(PROJNAME)/*
 
 (%.o): %.cpp
-	$(CC) -c $(CPPFLAGS) $< -o $(TEMP_DIR)/$@
+	echo $<
+	echo $@
+	@# $(CC) -c $(CXXFLAGS) $< -o $(TEMP_DIR)/$@
 
 lib$(PROJNAME).a: $(OBJ)
 	ar r $@ $?
