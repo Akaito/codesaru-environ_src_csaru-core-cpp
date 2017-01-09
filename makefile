@@ -54,14 +54,6 @@ test:
 
 build: lib$(PROJNAME).a
 
-# Just for human convenience.
-depend: .depend
-	@# Empty convenience rule.
-
-# File with more Make build rules, built by the compiler's dependency crawling.
-.depend: $(SRCS)
-	$(CC) $(CXXFLAGS) -MM $? > .depend
-
 clean:
 	#-rm -rf $(TEMP_DIR)/*
 	rm .depend
@@ -77,6 +69,4 @@ uninstall:
 
 lib$(PROJNAME).a: $(OBJ)
 	ar r $@ $?
-
-#include .depend
 
