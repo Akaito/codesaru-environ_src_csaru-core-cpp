@@ -20,15 +20,10 @@ include $(CSaruDir)/make-helpers.mk
 # ?= -- Set variable only if absent.
 
 PROJNAME = csaru-core-cpp
-TARGET ?= a.out
-
-HEADERS = include/csaru-core-cpp.h
-OBJ = $(subst .cpp,.o,$(SRC))
-TEMP_DIR = temp
+TARGET ?= lib$(PROJNAME).a
 
 SRC_DIRS ?= ./src
 
-#SRCS = src/LinuxOnly.cpp src/WindowsOnly.cpp
 SRCS := $(shell find $(SRC_DIRS) -name *.cpp -or -name *.c)
 OBJS := $(addsuffix .o,$(basename $(SRCS)))
 DEPS := $(OBJS:.o=.d)
@@ -46,27 +41,17 @@ CXXFLAGS := $(INC_FLAGS) -MMD -MP $(CXXFLAGS)
 
 .PHONY: clean test
 
+$(TARGET): $(OBJS)
+	$(CXX) $(LDFLAGS) $(OBJS) -o $@ $(LOADLIBS) $(LDLIBS)
+
 test:
 	@echo $(CXXFLAGS)
 	@echo $(SRCS)
 	@echo $(OBJS)
 	@echo $(DEPS)
 
-build: lib$(PROJNAME).a
-
 clean:
-	#-rm -rf $(TEMP_DIR)/*
-	rm .depend
+	$(RM) $(TARGET) $(OBJS) $(DEPS)
 
-uninstall:
-	-rm -rf $(CSaruDir)/pkg/$(PROJNAME)/*
-
-# WIP. Believe this rule isn't being hit due to Make magic taking over.
-(%.o): %.cpp
-	echo $<
-	echo $@
-	# $(CC) -c $(CXXFLAGS) $< -o $(TEMP_DIR)/$@
-
-lib$(PROJNAME).a: $(OBJ)
-	ar r $@ $?
+-include $(DEPS)
 
