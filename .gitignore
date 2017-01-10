@@ -16,8 +16,10 @@ CMakeCache.txt
 cmake_install.cmake
 install_manifest.txt
 
+# Make/*nix
+*.o
+*.d
+
 # Python
 __pycache__
 
-# This project
-temp
