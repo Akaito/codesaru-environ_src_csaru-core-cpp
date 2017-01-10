@@ -19,13 +19,13 @@ freely, subject to the following restrictions:
 */
 
 // this file implements the Windows side of Core functions.
-#ifdef linux
+#ifdef __linux__
 
 #include <cstdio>
 #include <cstring>
 #include <unistd.h>
 
-#include "exported/csaru-core-cpp.h"
+#include "exported/csaru-core-cpp.hpp"
 
 namespace CSaruCore {
 
@@ -48,5 +48,5 @@ void SecureZero (void * dest, size_t byteCount) {
 
 } // namespace CSaruCore
 
-#endif // linux
+#endif // __linux__
 

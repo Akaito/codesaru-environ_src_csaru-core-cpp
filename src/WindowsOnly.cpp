@@ -24,7 +24,7 @@ freely, subject to the following restrictions:
 #include <cstddef>
 #include <cstdio>
 
-#include "exported/csaru-core-cpp.h"
+#include "exported/csaru-core-cpp.hpp"
 
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
