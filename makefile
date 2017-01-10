@@ -42,7 +42,13 @@ CXXFLAGS := $(INC_FLAGS) -MMD -MP $(CXXFLAGS)
 .PHONY: clean test
 
 $(TARGET): $(OBJS)
-	$(CXX) $(LDFLAGS) $(OBJS) -o $@ $(LOADLIBS) $(LDLIBS)
+	@# Use the following for making an executable.
+	@# $(CXX) $(LDFLAGS) $(OBJS) -o $@ $(LOADLIBS) $(LDLIBS)
+	@# Or this for a static lib.
+	@# r: Insert members with replacement.
+	@# c: Don't warn if the archive didn't already exist.
+	@# s: Add or update archive's index.
+	$(AR) rcs $@ $^
 
 test:
 	@echo $(CXXFLAGS)
