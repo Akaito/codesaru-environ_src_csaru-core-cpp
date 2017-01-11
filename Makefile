@@ -11,9 +11,11 @@
 # "A Super-Simple Makefile for Medium-Sized C/C++ Projects"
 # https://spin.atomicobject.com/2016/08/26/makefile-c-projects/
 
-# CSaruDir should be in your environment variables.
-# It should have within it src, pkg, and bin directories.
-include $(CSaruDir)/make-helpers.mk
+WARNING_FLAGS := -Wall -Wextra -Wpedantic
+CFLAGS := $(WARNING_FLAGS) -Wansi
+CXXFLAGS := -std=c++11 $(WARNING_FLAGS)
+CC := clang
+CXX := clang++
 
 # =  -- Lazy set; recursively expanded when used, not when declared.
 # := -- Immediate set; expand when declared.
