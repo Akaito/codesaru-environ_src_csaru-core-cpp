@@ -19,7 +19,9 @@ include $(CSaruDir)/make-helpers.mk
 # := -- Immediate set; expand when declared.
 # ?= -- Set variable only if absent.
 
-PROJNAME = csaru-core-cpp
+# notdir gives the last not-directory part (which happens to be a directory
+# here).
+PROJNAME = $(notdir $(shell pwd))
 TARGET ?= lib$(PROJNAME).a
 
 SRC_DIRS ?= ./src
