@@ -25,7 +25,7 @@ freely, subject to the following restrictions:
 #include <cstring>
 #include <unistd.h>
 
-#include "exported/csaru-core-cpp.hpp"
+#include "exported/everything.hpp"
 
 namespace CSaruCore {
 
