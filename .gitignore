@@ -6,9 +6,8 @@
 # Visual Studio
 Debug
 Release
-*vcxproj*
-*.sln
 *.sdf
+.vs
 
 # CMake
 CMakeFiles
