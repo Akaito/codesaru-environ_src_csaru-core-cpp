@@ -25,21 +25,21 @@ freely, subject to the following restrictions:
 #include <cassert>
 
 #ifndef ASSERT
-#	define ASSERT(x) assert(x)
+#   define ASSERT(x) assert(x)
 #endif
 
 #ifdef unused
-#	error "unused already defined"
+#   error "unused already defined"
 #else
 // use to silence "unused variable" warnings
-#	define unused(x) (void(&x))
+#   define unused(x) (void(&x))
 #endif
 
 // Tweaked version from a talk by Ryan Gordon (of Icculus) at
 // Steam Dev Days, on (porting to) Linux game development.
 #ifndef STUBBED
-#	ifdef fprintf
-#		define STUBBED(msg) \
+#   ifdef fprintf
+#       define STUBBED(msg) \
     do { \
         static bool seenThis = false; \
         if (!seenThis) { \
@@ -47,9 +47,9 @@ freely, subject to the following restrictions:
                 msg, __FUNCTION__, __FILE__, __LINE__); \
         } \
     } while(0);
-#	else
-#		define STUBBED(msg) (void(&x))
-#	endif
+#   else
+#       define STUBBED(msg) (void(&x))
+#   endif
 #endif
 
 #define arrsize(a) \
@@ -73,26 +73,26 @@ freely, subject to the following restrictions:
 // http://stackoverflow.com/questions/1546789/clean-code-to-printf-size-t-in-c-or-nearest-equivalent-of-c99s-z-in-c
 // As explained in some places, MSVC's C compiler is still mostly in the C98 days.  GCC uses more modern C standards.
 #if defined(_MSC_VER) || defined(__MINGW32__) //__MINGW32__ should goes before __GNUC__
-#	define PF_SIZE_T    "%Iu"
-#	define PF_SSIZE_T   "%Id"
-#	define PF_PTRDIFF_T "%Id"
+#    define PF_SIZE_T    "%Iu"
+#    define PF_SSIZE_T   "%Id"
+#    define PF_PTRDIFF_T "%Id"
 #elif defined(__GNUC__)
-#	define PF_SIZE_T    "%zu"
-#	define PF_SSIZE_T   "%zd"
-#	define PF_PTRDIFF_T "%zd"
+#    define PF_SIZE_T    "%zu"
+#    define PF_SSIZE_T   "%zd"
+#    define PF_PTRDIFF_T "%zd"
 #else
   // TODO figure out which to use.
-#	if NUMBITS == 32
-#		error "Figure out size_t format specifiers for this platform."
-#		define PF_SIZE_T    something_unsigned
-#		define PF_SSIZE_T   something_signed
-#		define PF_PTRDIFF_T something_signed
-#	else
-#		error "Figure out size_t format specifiers for this platform."
-#		define PF_SIZE_T    something_bigger_unsigned
-#		define PF_SSIZE_T   something_bigger_signed
-#		define PF_PTRDIFF_T something-bigger_signed
-#	endif
+#    if NUMBITS == 32
+#        error "Figure out size_t format specifiers for this platform."
+#        define PF_SIZE_T    something_unsigned
+#        define PF_SSIZE_T   something_signed
+#        define PF_PTRDIFF_T something_signed
+#    else
+#        error "Figure out size_t format specifiers for this platform."
+#        define PF_SIZE_T    something_bigger_unsigned
+#        define PF_SSIZE_T   something_bigger_signed
+#        define PF_PTRDIFF_T something-bigger_signed
+#    endif
 #endif
 //
 //////
