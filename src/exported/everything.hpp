@@ -40,13 +40,13 @@ freely, subject to the following restrictions:
 #ifndef STUBBED
 #	ifdef fprintf
 #		define STUBBED(msg) \
-	do { \
-		static bool seenThis = false; \
-		if (!seenThis) { \
-			fprintf(stderr, "STUBBED: %s at %s (%s:%d)\n", \
-				msg, __FUNCTION__, __FILE__, __LINE__); \
-		} \
-	} while(0);
+    do { \
+        static bool seenThis = false; \
+        if (!seenThis) { \
+            fprintf(stderr, "STUBBED: %s at %s (%s:%d)\n", \
+                msg, __FUNCTION__, __FILE__, __LINE__); \
+        } \
+    } while(0);
 #	else
 #		define STUBBED(msg) (void(&x))
 #	endif
