@@ -26,7 +26,7 @@ int main (int argc, const char ** argv) {
 	TEST(bufferElements == 5);
 
 	cscore::SecureZero(buffer, sizeof(buffer));
-	for (int i = 0; i < arrsize(buffer); ++i) {
+	for (std::size_t i = 0; i < arrsize(buffer); ++i) {
 		TEST(buffer[i] == 0);
 	}
 
