@@ -12,3 +12,6 @@ CXXFLAGS += -D_GLIBCXX_DEBUG
 test: csaru-core.h test.cpp
 	$(CXX) $(CXXFLAGS) test.cpp -o test
 	./test
+
+clean:
+	rm test
