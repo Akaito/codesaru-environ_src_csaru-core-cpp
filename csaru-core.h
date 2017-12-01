@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2016 Christopher Higgins Barrett
+Copyright (c) 2017 Christopher Higgins Barrett
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
@@ -18,7 +18,13 @@ freely, subject to the following restrictions:
 3. This notice may not be removed or altered from any source distribution.
 */
 
+// csaru-core.h
+// Platform-independence functions and a few small utilities.
+
 #pragma once
+
+// Feel free to change this if you like.
+#define CSCORE_NAMESPACE cscore
 
 #include <cstdint>
 #include <climits>
@@ -52,9 +58,11 @@ freely, subject to the following restrictions:
 #   endif
 #endif
 
+// Seen at ArenaNet and elsewhere.
 #define arrsize(a) \
     (sizeof(a) / sizeof(a[0]))
 
+// From Google and others.
 #define DISALLOW_COPY_AND_ASSIGN(type)       \
     type (const type &) = delete;            \
     type & operator=(const type &) = delete;
@@ -97,7 +105,7 @@ freely, subject to the following restrictions:
 //
 //////
 
-namespace CSaruCore {
+namespace CSCORE_NAMESPACE {
 
 // system page size in bytes
 std::size_t GetSystemPageSize ();
@@ -106,5 +114,84 @@ void SecureZero (void * dest, std::size_t byteCount);
 
 void Beep ();
 
+} // namespace for csaru-core
+
+
+
+
+//=====================================================================
+// Linux implementations
+//=====================================================================
+
+#ifdef __linux__
+
+#	include <cstdio>
+#	include <cstring>
+#	include <unistd.h>
+
+#	include "exported/everything.hpp"
+
+namespace CSCORE_NAMESPACE {
+
+//=====================================================================
+void Beep () {
+    std::printf("\a");
+}
+
+//=====================================================================
+std::size_t GetSystemPageSize () {
+    // From getpagesize man page.
+    return sysconf(_SC_PAGESIZE);
+}
+
+//=====================================================================
+void SecureZero (void * dest, size_t byteCount) {
+    // TODO : Could GCC/Clang/etc. ever optimize this out?
+    memset(dest, 0, byteCount);
+}
+
+} // namespace for csaru-core
+
+#endif // __linux__
+
+
+
+
+//=====================================================================
+// Windows implementations
+//=====================================================================
+
+#ifdef _MSC_VER
+
+#	include <cstddef>
+#	include <cstdio>
+
+#	include "exported/everything.hpp"
+
+#	define WIN32_LEAN_AND_MEAN
+#	define NOMINMAX
+#	include <Windows.h>
+
+namespace CSaruCore {
+
+//=====================================================================
+void Beep () {
+    std::printf("\a");
+}
+
+//=====================================================================
+std::size_t GetSystemPageSize () {
+    SYSTEM_INFO sysInfo;
+    GetSystemInfo(&sysInfo);
+    return static_cast<std::size_t>(sysInfo.dwPageSize);
+}
+
+//=====================================================================
+void SecureZero (void * dest, size_t byteCount) {
+    SecureZeroMemory(dest, byteCount);
+}
+
 } // namespace CSaruCore
+
+#endif // _MSC_VER
 
