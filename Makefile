@@ -14,4 +14,4 @@ test: csaru-core.h test.cpp
 	./test
 
 clean:
-	rm test
+	rm -f test
