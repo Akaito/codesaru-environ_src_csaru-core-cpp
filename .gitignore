@@ -23,3 +23,6 @@ install_manifest.txt
 # Python
 __pycache__
 
+# this project
+test
+

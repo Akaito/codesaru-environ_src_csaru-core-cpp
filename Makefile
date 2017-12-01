@@ -1,13 +1,14 @@
-# Expected location for this project is in <CSaruEnv>/src/<this-project>
-# CSaruEnv is expected to have a makefiles directory for handy selection of what
-# this directory will turn into.
-#
-# For CSaruEnv, see https://github.com/Akaito/codesaru-environ
+WARNING_FLAGS += -Wall -Wextra -Wpedantic
+CFLAGS += $(WARNING_FLAGS)
+CXXFLAGS += -g -std=c++11 $(WARNING_FLAGS)
+CC := clang
+CXX := clang++
 
-# Special variable used to build ld (linker) -l and -L args.
-# Space-separated list of CSaruEnv modules.
-CSARU_DEPENDS = csaru-core-cpp
-PROJ_VERSION = 0.2
+# clang/gdb interop: http://lists.llvm.org/pipermail/llvm-bugs/2015-July/040993.html
+CXXFLAGS += -D_GLIBCXX_DEBUG
 
-include ../../makefiles/Makefile-staticlib
+.PHONY: clean
 
+test: csaru-core.h test.cpp
+	$(CXX) $(CXXFLAGS) test.cpp -o test
+	./test

@@ -20,6 +20,7 @@ freely, subject to the following restrictions:
 
 // csaru-core.h
 // Platform-independence functions and a few small utilities.
+// Define CSARU_CORE_IMPL in *one* of your cpp files to use this.
 
 #pragma once
 
@@ -75,6 +76,16 @@ freely, subject to the following restrictions:
 #   define MAX(x, y) ((x) > (y) ? (x) : (y))
 #endif
 
+#ifndef TEST
+#	define TEST(t) \
+	if (!((t) ? \
+	 (std::printf("PASS: %s\n", #t), true) : \
+	 (std::printf("FAIL: %s\n", #t), false)) \
+	   ) { \
+		return 1; \
+	}
+#endif
+
 //////
 // size_t printf specifiers for multiple platforms.
 // Copy-paste-tweaked from:
@@ -99,7 +110,7 @@ freely, subject to the following restrictions:
 #        error "Figure out size_t format specifiers for this platform."
 #        define PF_SIZE_T    something_bigger_unsigned
 #        define PF_SSIZE_T   something_bigger_signed
-#        define PF_PTRDIFF_T something-bigger_signed
+#        define PF_PTRDIFF_T something_bigger_signed
 #    endif
 #endif
 //
@@ -119,17 +130,20 @@ void Beep ();
 
 
 
+#ifdef CSARU_CORE_IMPL
+
+
+
+
 //=====================================================================
 // Linux implementations
 //=====================================================================
 
-#ifdef __linux__
+#	ifdef __linux__
 
-#	include <cstdio>
-#	include <cstring>
-#	include <unistd.h>
-
-#	include "exported/everything.hpp"
+#		include <cstdio>
+#		include <cstring>
+#		include <unistd.h>
 
 namespace CSCORE_NAMESPACE {
 
@@ -152,7 +166,7 @@ void SecureZero (void * dest, size_t byteCount) {
 
 } // namespace for csaru-core
 
-#endif // __linux__
+#	endif // __linux__
 
 
 
@@ -161,16 +175,14 @@ void SecureZero (void * dest, size_t byteCount) {
 // Windows implementations
 //=====================================================================
 
-#ifdef _MSC_VER
+#	ifdef _MSC_VER
 
-#	include <cstddef>
-#	include <cstdio>
+#		include <cstddef>
+#		include <cstdio>
 
-#	include "exported/everything.hpp"
-
-#	define WIN32_LEAN_AND_MEAN
-#	define NOMINMAX
-#	include <Windows.h>
+#		define WIN32_LEAN_AND_MEAN
+#		define NOMINMAX
+#		include <Windows.h>
 
 namespace CSaruCore {
 
@@ -193,5 +205,8 @@ void SecureZero (void * dest, size_t byteCount) {
 
 } // namespace CSaruCore
 
-#endif // _MSC_VER
+#	endif // _MSC_VER
+
+
+#endif // CSARU_CORE_IMPL
 
